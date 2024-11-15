@@ -242,35 +242,29 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow/dags
       o: bind
   v_logs:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow/logs
       o: bind
   v_config:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow/config
       o: bind
   v_plugins:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow/plugins
       o: bind
   v_postgres:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/postgres/data
       o: bind
   v_sources:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow-init/sources
       o: bind
