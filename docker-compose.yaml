@@ -202,9 +202,15 @@ services:
       _AIRFLOW_WWW_USER_USERNAME: etladmin
       _AIRFLOW_WWW_USER_PASSWORD: automacao123
       _PIP_ADDITIONAL_REQUIREMENTS: ''
-    user: "airflow:0"
+    user: "50000:0"
     volumes:
       - /var/docker/airflow/sources:/sources
+    depends_on:
+      &airflow-common-depends-on
+      redis:
+          condition: service_healthy
+      postgres:
+          condition: service_healthy  
   
   airflow-cli:
     <<: *airflow-common
