@@ -37,10 +37,10 @@ x-airflow-common:
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:automacao123@postgres/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
   volumes:
-    - v_dags/dags:/opt/airflow/dags
-    - v_logs/logs:/opt/airflow/logs
-    - v_config/config:/opt/airflow/config
-    - v_plugins/plugins:/opt/airflow/plugins
+    - v_dags:/opt/airflow/dags
+    - v_logs:/opt/airflow/logs
+    - v_config:/opt/airflow/config
+    - v_plugins:/opt/airflow/plugins
   user: "50000:0"
   depends_on:
     &airflow-common-depends-on
@@ -57,7 +57,7 @@ services:
       POSTGRES_PASSWORD: automacao123
       POSTGRES_DB: airflow
     volumes:
-      - v_postgres/data:/var/lib/postgresql/data
+      - v_postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s
@@ -204,7 +204,7 @@ services:
       _PIP_ADDITIONAL_REQUIREMENTS: ''
     user: "airflow:0"
     volumes:
-      - v_sources/sources:/sources
+      - v_sources:/sources
   
   airflow-cli:
     <<: *airflow-common
@@ -242,35 +242,35 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow
+      device: /temp/docker_volumes/airflow/dags
       o: bind
   v_logs:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow
+      device: /temp/docker_volumes/airflow/logs
       o: bind
   v_config:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow
+      device: /temp/docker_volumes/airflow/config
       o: bind
   v_plugins:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow
+      device: /temp/docker_volumes/airflow/plugins
       o: bind
   v_postgres:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/postgres
+      device: /temp/docker_volumes/postgres/data
       o: bind
   v_sources:
     driver: local
     driver_opts:
       type: none
-      device: /temp/docker_volumes/airflow-init
+      device: /temp/docker_volumes/airflow-init/sources
       o: bind
