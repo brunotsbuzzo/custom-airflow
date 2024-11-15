@@ -199,7 +199,7 @@ services:
       <<: *airflow-common-env
       _AIRFLOW_DB_MIGRATE: 'true'
       _AIRFLOW_WWW_USER_CREATE: 'true'
-      _AIRFLOW_WWW_USER_USERNAME: etladmin
+      _AIRFLOW_WWW_USER_USERNAME: admin
       _AIRFLOW_WWW_USER_PASSWORD: automacao123
       _PIP_ADDITIONAL_REQUIREMENTS: ''
     user: "50000:0"
