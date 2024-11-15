@@ -37,10 +37,10 @@ x-airflow-common:
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:automacao123@postgres/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
   volumes:
-    - v_dags:/opt/airflow/dags
-    - v_logs:/opt/airflow/logs
-    - v_config:/opt/airflow/config
-    - v_plugins:/opt/airflow/plugins
+    - /var/docker/airflow/dags:/opt/airflow/dags
+    - /var/docker/airflow/logs:/opt/airflow/logs
+    - /var/docker/airflow/config:/opt/airflow/config
+    - /var/docker/airflow/plugins:/opt/airflow/plugins
   user: "50000:0"
   depends_on:
     &airflow-common-depends-on
@@ -57,7 +57,7 @@ services:
       POSTGRES_PASSWORD: automacao123
       POSTGRES_DB: airflow
     volumes:
-      - v_postgres:/var/lib/postgresql/data
+      - /var/docker/postgres/data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s
@@ -204,7 +204,7 @@ services:
       _PIP_ADDITIONAL_REQUIREMENTS: ''
     user: "airflow:0"
     volumes:
-      - v_sources:/sources
+      - /var/docker/airflow/sources:/sources
   
   airflow-cli:
     <<: *airflow-common
